@@ -1,0 +1,28 @@
+version: "3.2"
+
+services:
+  application-express:
+    image: docker-nodejs
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    networks:
+      - customer
+
+  mongo-db:
+    image: mongo:4.4.2
+    ports:
+      - 27017:27017
+    networks:
+      - customer
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+    external: true
+
+networks:
+  customer:
+    external: true
